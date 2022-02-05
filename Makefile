@@ -15,7 +15,7 @@ CLIENT			=	client
 INC				= -I inc/
 
 CC				=	gcc
-RM				=	rm -f
+RM				=	rm -rf
 CFLAGS			=	-Wall -Werror -Wextra
 
 all:	obj $(CLIENT) $(SERVER)
@@ -34,7 +34,7 @@ obj/%.o: src/%.c
 				$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 clean:
-			${RM} ${OBJ_CLIENT} ${OBJ_SERVER}
+			${RM} obj ${OBJ_CLIENT} ${OBJ_SERVER}
 
 fclean:		clean
 			${RM} ${CLIENT} ${SERVER}
