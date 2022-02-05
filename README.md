@@ -5,8 +5,8 @@ A communication program in the form of a client and a server.
 • The server must be started first. After its launch, it prints its PID.
 
 • The client takes two parameters:
-  ◦ The server PID.
-  ◦ The string to send.
+◦ The server PID.
+◦ The string to send.
   
 • The client sends the string passed as a parameter to the server.
 Once the string has been received, the server prints it.
