@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   add_double_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 13:28:10 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/07 00:01:04 by mourdani         ###   ########.fr       */
+/*   Created: 2020/01/11 02:22:07 by psprawka          #+#    #+#             */
+/*   Updated: 2020/02/23 09:01:16 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define  MINTALK_H
+#include "libft.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include "../libft/includes/libft.h"
+t_dnode *ft_get_last_double_list(t_dnode *head)
+{
+    t_dnode *tmp;
 
-#endif
+    tmp = head;
+    while (tmp && tmp->next)
+        tmp = tmp->next;
+    return (tmp);
+}

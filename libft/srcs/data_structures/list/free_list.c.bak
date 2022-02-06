@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 13:28:10 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/07 00:01:04 by mourdani         ###   ########.fr       */
+/*   Created: 2018/06/21 03:35:33 by psprawka          #+#    #+#             */
+/*   Updated: 2020/01/11 02:40:20 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define  MINTALK_H
+#include "libft.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include "../libft/includes/libft.h"
+void	ft_free_list(t_node *list, void (*fct_free)(void *))
+{
+	t_node *tmp;
 
-#endif
+	while (list)
+	{
+		tmp = list;
+		list = list->next;
+		if (fct_free)
+			fct_free(tmp->data);
+		free(tmp);
+	}
+}

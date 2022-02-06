@@ -1,44 +1,58 @@
+SRC_SERVER	= src/server.c\
 
+SRC_CLIENT	= src/client.c\
 
-SRC_SERVER		=	src/server.c\
-								src/utils.c
+OBJ_SERVER	= ${patsubst src/%, obj/%, $(SRC_SERVER:.c=.o)}
+OBJ_CLIENT	= ${patsubst src/%, obj/%, $(SRC_CLIENT:.c=.o)}
 
-SRC_CLIENT		=	src/client.c\
-								src/utils.c
+SERVER		= server
+CLIENT		= client
 
-OBJ_SERVER		= 	${patsubst src/%, obj/%, $(SRC_SERVER:.c=.o)}
-OBJ_CLIENT		= 	${patsubst src/%, obj/%, $(SRC_CLIENT:.c=.o)}
+LIBFT		= $(LIBFT_DIR)libft.a
+LIBFT_DIR	= ./libft/
+LIB_FLAGS	= -L $(LIBFT_DIR) -lft
+INC		= -I ./inc/ -I $(LIBFT_DIR)
 
-SERVER			= 	server
-CLIENT			=	client
+CC		= gcc
+RM		= rm -rf
+CFLAGS		= -Wall -Werror -Wextra
 
-INC				= -I inc/
-
-CC				=	gcc
-RM				=	rm -rf
-CFLAGS			=	-Wall -Werror -Wextra
+DONE = @echo "libft compiled successfully!"
+CLEAN_O = @echo "Object files removed!"
+CLEAN_A = @echo "Executables removed!"
+DONE_C = @echo "Client ready to use!"
+DONE_S = @echo "Server ready to use!"
 
 all:	obj $(CLIENT) $(SERVER)
 
 
-$(CLIENT):	${OBJ_CLIENT}
-			$(CC)  $(CFLAGS) $(OBJ_CLIENT) -o $(CLIENT)
+$(CLIENT): $(OBJ_CLIENT) $(LIBFT)
+	@$(CC)  $(CFLAGS) $(OBJ_CLIENT) $(LIB_FLAGS) -o $(CLIENT)
+	$(DONE_C)
 
-$(SERVER):	${OBJ_SERVER}
-			$(CC)  $(CFLAGS) $(OBJ_SERVER) -o $(SERVER)
+$(SERVER): $(OBJ_SERVER) $(LIBFT)
+	@$(CC)  $(CFLAGS) $(OBJ_SERVER) $(LIB_FLAGS) -o $(SERVER)
+	$(DONE_S)
+
+$(LIBFT):
+	@make --no-print-directory -C $(LIBFT_DIR)
 
 obj:
-				mkdir -p obj
+	@mkdir -p obj
 
 obj/%.o: src/%.c
-				$(CC) $(FLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
-			${RM} obj ${OBJ_CLIENT} ${OBJ_SERVER}
+	@make clean --no-print-directory -C $(LIBFT_DIR)
+	@${RM} obj ${OBJ_CLIENT} ${OBJ_SERVER}
+	$(CLEAN_O)
 
-fclean:		clean
-			${RM} ${CLIENT} ${SERVER}
+fclean:	clean
+	@make fclean --no-print-directory -C $(LIBFT_DIR)
+	@${RM} ${CLIENT} ${SERVER}
+	$(CLEAN_A)
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:	all clean fclean re obj 

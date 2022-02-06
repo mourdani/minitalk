@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   create_rbtree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 13:28:10 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/07 00:01:04 by mourdani         ###   ########.fr       */
+/*   Created: 2018/09/04 15:51:00 by psprawka          #+#    #+#             */
+/*   Updated: 2018/10/05 18:31:43 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define  MINTALK_H
+#include "libft.h"
+#include "libft_rbtree.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include "../libft/includes/libft.h"
+t_rbtree	*ft_create_rbtree(void *data)
+{
+	t_rbtree *new;
 
-#endif
+	new = (t_rbtree *)malloc(sizeof(t_rbtree));
+	ft_bzero(new, sizeof(t_rbtree));
+	new->data = data;
+	new->color = RBRED;
+	return (new);
+}

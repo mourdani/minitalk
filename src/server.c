@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/06 02:16:44 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/06 23:25:54 by mourdani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minitalk.h"
 
 char	*fill_binary(int signum)
@@ -18,7 +30,7 @@ void	handler(int signum)
 	msg = fill_binary(signum);
 }
 
-int main(void)
+int main()
 {
 	struct sigaction action;
 

@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   create_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 13:28:10 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/07 00:01:04 by mourdani         ###   ########.fr       */
+/*   Created: 2018/12/05 00:25:37 by psprawka          #+#    #+#             */
+/*   Updated: 2018/12/05 00:27:05 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define  MINTALK_H
+#include "libft.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include "../libft/includes/libft.h"
+t_btree     *ft_create_tree(void *data)
+{
+	t_tree *new;
 
-#endif
+	if (!(new = (t_rbtree *)malloc(sizeof(t_rbtree))))
+        return (NULL);
+	ft_bzero(new, sizeof(t_rbtree));
+	new->data = data;
+	return (new);
+}
