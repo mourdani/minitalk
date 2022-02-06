@@ -1,22 +1,27 @@
-SRC_SERVER	= src/server.c\
-
-SRC_CLIENT	= src/client.c\
-
-OBJ_SERVER	= ${patsubst src/%, obj/%, $(SRC_SERVER:.c=.o)}
-OBJ_CLIENT	= ${patsubst src/%, obj/%, $(SRC_CLIENT:.c=.o)}
-
+## Executables name
 SERVER		= server
 CLIENT		= client
 
+## Sources
+SRC_SERVER	= src/server.c\
+SRC_CLIENT	= src/client.c\
+
+## Objects (patsubst = path substitute)
+OBJ_SERVER	= ${patsubst src/%, obj/%, $(SRC_SERVER:.c=.o)}
+OBJ_CLIENT	= ${patsubst src/%, obj/%, $(SRC_CLIENT:.c=.o)}
+
+## LIBFT config
 LIBFT		= $(LIBFT_DIR)libft.a
 LIBFT_DIR	= ./libft/
 LIB_FLAGS	= -L $(LIBFT_DIR) -lft
 INC		= -I ./inc/ -I $(LIBFT_DIR)
 
+## Compiling config
 CC		= gcc
 RM		= rm -rf
 CFLAGS		= -Wall -Werror -Wextra
 
+## Output messages
 DONE = @echo "libft compiled successfully!"
 CLEAN_O = @echo "Object files removed!"
 CLEAN_A = @echo "Executables removed!"
