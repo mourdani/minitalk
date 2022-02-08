@@ -3,8 +3,8 @@ SERVER		= server
 CLIENT		= client
 
 ## Sources
-SRC_SERVER	= src/server.c\
-SRC_CLIENT	= src/client.c\
+SRC_SERVER	= src/server.c
+SRC_CLIENT	= src/client.c
 
 ## Objects (patsubst = path substitute)
 OBJ_SERVER	= ${patsubst src/%, obj/%, $(SRC_SERVER:.c=.o)}
@@ -32,11 +32,11 @@ all:	obj $(CLIENT) $(SERVER)
 
 
 $(CLIENT): $(OBJ_CLIENT) $(LIBFT)
-	@$(CC)  $(CFLAGS) $(OBJ_CLIENT) $(LIB_FLAGS) -o $(CLIENT)
+	$(CC)  $(CFLAGS) $(OBJ_CLIENT) $(LIB_FLAGS) -o $(CLIENT)
 	$(DONE_C)
 
 $(SERVER): $(OBJ_SERVER) $(LIBFT)
-	@$(CC)  $(CFLAGS) $(OBJ_SERVER) $(LIB_FLAGS) -o $(SERVER)
+	$(CC)  $(CFLAGS) $(OBJ_SERVER) $(LIB_FLAGS) -o $(SERVER)
 	$(DONE_S)
 
 $(LIBFT):
