@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2020/01/11 02:51:27 by psprawka         ###   ########.fr       */
+/*   Updated: 2022/02/08 19:33:30 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void			*ft_top_stack(t_node *stack);
 **	memory/
 */
 void			ft_bzero(void *str, unsigned int n);
+void			*ft_calloc(size_t count, size_t size)
 void			*ft_memalloc(size_t size);
 void			*ft_memchr(void *s, int c, size_t n);
 void			*ft_memcpy(void *dest, void *src, unsigned int size);

@@ -3,7 +3,7 @@ SERVER		= server
 CLIENT		= client
 
 ## Sources
-SRC_SERVER	= src/server.c
+SRC_SERVER	= src/server_prot.c
 SRC_CLIENT	= src/client.c
 
 ## Objects (patsubst = path substitute)

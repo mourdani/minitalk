@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2022/02/07 00:22:10 by mourdani         ###   ########.fr        #
+#    Updated: 2022/02/08 19:31:59 by mourdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC = $(SRC_DIR)$(IO)ft_putchar_fd.c  \
 		$(SRC_DIR)$(MEMORY)ft_memncmp.c \
 		$(SRC_DIR)$(MEMORY)ft_memset.c \
 		$(SRC_DIR)$(MEMORY)ft_swap.c \
+		$(SRC_DIR)$(MEMORY)ft_calloc.c \
 		$(SRC_DIR)$(NUMERIC)ft_atoi.c \
 		$(SRC_DIR)$(NUMERIC)ft_convert_binary.c \
 		$(SRC_DIR)$(NUMERIC)ft_convert_hex.c \
