@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../includes/libft.h"
 
 /*
 DESCRIPTION
@@ -10,15 +10,14 @@ RETURN VALUES
 	If successful, ft_calloc() return a pointer to allocated memory. 
 	If there is an error, they return a NULL pointer and set errno to ENOMEM.
 */
+
 void	*ft_calloc(size_t count, size_t size)
 {
-	void			*result;
-	unsigned int	arrsize;
+	void	*memory;
 
-	arrsize = count * size;
-	result = malloc(arrsize);
-	if (result == NULL)
+	memory = malloc(count * size);
+	if (!memory)
 		return (NULL);
-	ft_bzero(result, arrsize);
-	return (result);
+	ft_bzero(memory, count * size);
+	return (memory);
 }

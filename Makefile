@@ -25,18 +25,18 @@ CFLAGS		= -Wall -Werror -Wextra
 DONE = @echo "libft compiled successfully!"
 CLEAN_O = @echo "Object files removed!"
 CLEAN_A = @echo "Executables removed!"
-DONE_C = @echo "Client ready to use!"
-DONE_S = @echo "Server ready to use!"
+DONE_C = @echo "CLIENT ready to use!"
+DONE_S = @echo "SERVER ready to use!"
 
 all:	obj $(CLIENT) $(SERVER)
 
 
 $(CLIENT): $(OBJ_CLIENT) $(LIBFT)
-	$(CC)  $(CFLAGS) $(OBJ_CLIENT) $(LIB_FLAGS) -o $(CLIENT)
+	@$(CC)  $(CFLAGS) $(OBJ_CLIENT) $(LIB_FLAGS) -o $(CLIENT)
 	$(DONE_C)
 
 $(SERVER): $(OBJ_SERVER) $(LIBFT)
-	$(CC)  $(CFLAGS) $(OBJ_SERVER) $(LIB_FLAGS) -o $(SERVER)
+	@$(CC)  $(CFLAGS) $(OBJ_SERVER) $(LIB_FLAGS) -o $(SERVER)
 	$(DONE_S)
 
 $(LIBFT):

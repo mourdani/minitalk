@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2022/02/08 19:31:59 by mourdani         ###   ########.fr        #
+#    Updated: 2022/02/09 02:23:13 by mourdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC = $(SRC_DIR)$(IO)ft_putchar_fd.c  \
 		$(SRC_DIR)$(IO)ft_gnl.c \
 		$(SRC_DIR)$(MEMORY)ft_bzero.c \
 		$(SRC_DIR)$(MEMORY)ft_memalloc.c \
+		$(SRC_DIR)$(MEMORY)ft_realloc.c \
 		$(SRC_DIR)$(MEMORY)ft_memchr.c \
 		$(SRC_DIR)$(MEMORY)ft_memcpy.c \
 		$(SRC_DIR)$(MEMORY)ft_memdup.c \

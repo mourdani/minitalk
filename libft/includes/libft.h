@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2022/02/08 19:33:30 by mourdani         ###   ########.fr       */
+/*   Created: 2022/02/09 01:22:40 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/09 02:22:31 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -102,13 +103,14 @@ void			*ft_top_stack(t_node *stack);
 **	memory/
 */
 void			ft_bzero(void *str, unsigned int n);
-void			*ft_calloc(size_t count, size_t size)
+void			*ft_calloc(size_t count, size_t size);
 void			*ft_memalloc(size_t size);
 void			*ft_memchr(void *s, int c, size_t n);
 void			*ft_memcpy(void *dest, void *src, unsigned int size);
 void			*ft_memdup(void *src, int size);
 int				ft_memncmp(void *s1, void *s2, size_t n);
 void			*ft_memset(void *str, int c, size_t n);
+char			*ft_realloc(char *str, char c);
 void			ft_swap(int *a, int *b);
 
 /*

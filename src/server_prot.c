@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   server_prot.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/23 22:55:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/08 19:24:40 by mourdani         ###   ########.fr       */
+/*   Created: 2022/02/09 01:22:51 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/09 02:15:44 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
-
-char	*ft_realloc(char *str, char c)
-{
-	char	*result;
-	size_t	i;
-
-	result = ft_calloc((ft_strlen(str) + 2), sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		result[i] = str[i];
-		i++;
-	}
-	result[i] = c;
-	free(str);
-	return (result);
-}
 
 char	ft_btoc(char *str)
 {
@@ -59,7 +40,7 @@ void	ft_next(char **result, char **str)
 		return ;
 	if ((int)c == '\0')
 	{
-		ft_printf("%s", *result);
+		ft_putstr(*result);
 		free(*result);
 		*result = NULL;
 	}
@@ -67,7 +48,7 @@ void	ft_next(char **result, char **str)
 	*str = NULL;
 }
 
-void	ft_signal(int signal)
+static void	ft_signal(int signal)
 {
 	static char	*str;
 	static int	count;
@@ -97,7 +78,9 @@ void	ft_signal(int signal)
 
 int	main(void)
 {
-	ft_printf("PID : %d\n", getpid());
+	ft_putstr("PID : ");
+	ft_putnbr(getpid());
+	ft_putstr("\n");
 	while (1)
 	{
 		signal(SIGUSR1, ft_signal);
