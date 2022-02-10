@@ -60,4 +60,7 @@ fclean:	clean
 
 re: fclean all
 
+norm:
+	norminette libft/sources libft/includes src inc > norm.log
+
 .PHONY:	all clean fclean re obj 
