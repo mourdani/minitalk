@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 18:31:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 05:17:43 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:05:25 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,11 @@ void	send_binary(char *binary, int pid)
 	while (binary[i])
 	{
 		if (binary[i] == '1')
-		{
-			usleep(50);
 			kill(pid, SIGUSR1);
-		}
 		if (binary[i] == '0')
-		{
-			usleep(50);
 			kill(pid, SIGUSR2);
-		}
 		i++;
-		usleep(200);
+		usleep(250);
 	}
 }
 
