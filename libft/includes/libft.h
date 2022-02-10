@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 01:22:40 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/09 02:22:31 by mourdani         ###   ########.fr       */
+/*   Created: 2021/02/02 21:58:19 by lpaulo-m          #+#    #+#             */
+/*   Updated: 2022/02/07 00:47:08 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -17,169 +16,168 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include <stdio.h>
+# include <limits.h>
+# include <sys/resource.h>
 
-# include "libft_define.h"
-# include "libft_struct.h"
-# include "libft_rbtree.h"
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+# define MAX_FILE_DESCRIPTOR RLIMIT_NOFILE
 
+# define GNL_FOUND_LINEBREAK 1
+# define GNL_FOUND_EOF 0
+# define GNL_ERROR -1
 
-// static t_ht_item HASH_DELETED_ITEM = {NULL, NULL}; 
+# define DECIMAL_BASE "0123456789"
+# define DOWNCASE_HEX_BASE "0123456789abcdef"
+# define UPPERCASE_HEX_BASE "0123456789ABCDEF"
 
-/*
-**	io/
-*/
-void			ft_putchar_fd(char c, int fd);
-void			ft_putendl_fd(char *s, int fd);
-void			ft_putnbr_fd();//long long nb, int fd);
-void			ft_putstr_fd(char *s, int fd);
-int				ft_get_next_line(int fd, char **line);
-int				ft_printf(const char *format, ...);
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
-/*
-**	data_structures/
-*/
-t_node			*ft_init_node(void *data, size_t dsize);
-void			remove_node(t_queue **queue, t_node *prev, t_node *remove);
+bool				unless(bool condition);
+void				*ft_salloc(size_t size);
 
+double				ft_abs_d(double number);
+float				ft_abs_f(float number);
+int					ft_abs_i(int number);
+int					ft_abs(int number);
 
-/*
-**  data_structures/btree
-*/
+double				ft_min_d(double x, double y);
+double				ft_max_d(double x, double y);
+double				ft_clamp_d(double x, double min, double max);
 
+void				ft_swap(int *a, int *b);
+void				ft_swap_i(int *a, int *b);
 
-/*
-**	data_structures/double_list/
-*/
-int				ft_add_back_double_list(t_dnode **list, t_dnode *node);
-int				ft_add_front_double_list(t_dnode **list, t_dnode *node);
-void			ft_free_double_list(t_dnode *list, void (*fct_free)(void *));
-t_dnode         *ft_get_last_double_list(t_dnode *head);
-t_dnode		    *ft_init_double_list(void *data, size_t dsize);
-void			ft_print_double_list(t_dnode *list, void (*fct_print)(void *));
-void			ft_remove_double_list(t_dnode **list, t_dnode *node);
+void				ft_div_mod(int a, int b, int *div, int *mod);
+void				ft_div_mod_i(int a, int b, int *div, int *mod);
 
-/*
-**	data_structures/hash_table/
-*/
-void			ft_free_item_ht(t_ht_item *item);
-void			ft_free_ht(t_ht_table *table);
-int				ft_hash_ht(void *value, int size);
-t_ht_item		*ft_init_item_ht(void *key, void *value);
-t_ht_table		*ft_init_table_ht(int size);
-int				ft_insert_ht(t_ht_table *table, t_ht_item *item, int (*fcmp)(void *, void *));
-void			ft_print_ht(t_ht_table *table);
-int		        ft_remove_item_ht(t_ht_table *table, void *key, int (*fcmp)(void *, void *));
-void			*ft_search_ht(t_ht_table *table, void *key, int (*fcmp)(void *, void *));
+int					ft_sqrt(int number);
+int					ft_sqrt_i(int number);
+int					ft_pow(int number, int power);
+int					ft_pow_i(int number, int power);
+int					ft_fibonacci(int index);
+int					ft_factorial(int number);
 
-/*
-**	data_structures/list/
-*/
-int				ft_add_back_list(t_node **list, t_node *node);
-int				ft_add_front_list(t_node **list, t_node *node);
-void			ft_free_list(t_node *list, void (*fct_free)(void *));
-void			ft_print_list(t_node *list, void (*fct_print)(void *));
-void			ft_remove_list(t_node **list, t_node *node);
+void				*ft_memset(void *s, int c, size_t n);
+void				ft_bzero(void *s, size_t n);
+void				*ft_memcpy(void *dest, const void *src, size_t n);
+void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
+void				*ft_memmove(void *dest, const void *src, size_t n);
+void				*ft_memchr(const void *s, int c, size_t n);
+int					ft_memcmp(const void *s1, const void *s2, size_t n);
 
-/*
-**	data_structures/queue/
-*/
-void			ft_free_queue(t_queue *queue, void (*fct_free)(void *));
-t_queue			*ft_init_queue(void);
-t_node			*ft_pop_queue(t_queue **queue);
-void			ft_push_queue(t_queue **head, t_node *new);
-void			ft_push_pqueue(t_queue **head, t_node *new, int (*fct)(t_node *, t_node *));
-void			*ft_top_queue(t_queue *queue);
+size_t				ft_strlen(const char *s);
+char				*ft_strcpy(char *dest, char *src);
+void				ft_strdel(char **delete_me);
+char				*ft_strnchr(const char *s, int c, unsigned int limit);
 
-/*
-**	data_structures/stack/
-*/
-bool			ft_is_empty_stack(t_node *stack);
-int				ft_push_stack(t_node **stack, t_node *to_push);
-t_node			*ft_pop_stack(t_node **stack);
-void			*ft_top_stack(t_node *stack);
+size_t				ft_strlcpy(char *dst, const char *src, size_t size);
+size_t				ft_strlcat(char *dst, const char *src, size_t size);
+char				*ft_strchr(const char *s, int c);
+char				*ft_strrchr(const char *s, int c);
+char				*ft_strnstr(const char *haystack,
+						const char *needle,
+						size_t len);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
-/*
-**	memory/
-*/
-void			ft_bzero(void *str, unsigned int n);
-void			*ft_calloc(size_t count, size_t size);
-void			*ft_memalloc(size_t size);
-void			*ft_memchr(void *s, int c, size_t n);
-void			*ft_memcpy(void *dest, void *src, unsigned int size);
-void			*ft_memdup(void *src, int size);
-int				ft_memncmp(void *s1, void *s2, size_t n);
-void			*ft_memset(void *str, int c, size_t n);
-char			*ft_realloc(char *str, char c);
-void			ft_swap(int *a, int *b);
+int					ft_atoi(const char *number_pointer);
+unsigned int		ft_atoui(const char *number_pointer);
+unsigned int		ft_atoui_strict(const char *number_pointer);
 
-/*
-**	numeric/	//those functions are HORRIBLE, to fix!!!
-*/
-long long		ft_atoi(char *s);
-char			*ft_convert_hex(unsigned long int nb, int type);
-char			*ft_convert_octal(unsigned long int nb);
-char			*ft_convert_uni(wchar_t wide);
-char			*ft_ftoa(double n);
-char			*ft_itoa(int nbr);
-void			ft_putnbr(int nb);
-char			*ft_ulltoa(unsigned long long int nb);
-char			*ft_convert_wchar_str(wchar_t *str, int len);
-char			*ft_convert_binary(unsigned long int nb);
+bool				ft_isdigit(int c);
+bool				ft_is_whitespace(char character);
+bool				ft_is_plus_or_minus(char character);
+bool				ft_is_decimal_char(char character);
+bool				ft_isupper(int c);
+bool				ft_islower(int c);
+bool				ft_isalpha(int c);
+bool				ft_isalnum(int c);
+bool				ft_isascii(int c);
+bool				ft_isprint(int c);
 
-/*
-**	2D_array/
-*/
-int 			ft_2Darr_size(char **arr);
-void			ft_2Darr_free(char **arr);
+int					ft_toupper(int c);
+int					ft_tolower(int c);
 
-/*
-**	string/
-*/
-int				ft_are_whitespaces(char *str);
-void			ft_putchar(char c);
-void			ft_putendl(char *str);
-void			ft_putstr(char *s);
-void			ft_strclr(char *s);
-char			*ft_strcat(char *dest, char *src);
-char			*ft_strchr(char *str, char to_find);
-int				ft_strcmp(char *s1, char *s2);
-int     		ft_strcount_chr(char *str, char chr);
-char			*ft_strcpy(char *dest, char *src);
-char			*ft_strdup_chr(char *src, char c);
-char			*ft_strdup(char *src);
-char			*ft_strjoin(char *s1, char *s2, bool sfree);
-int				ft_strlen_chr(char *str, char c);
-int				ft_strlen(char *str);
-char			*ft_strncat(char *dest, char *src, size_t size);
-int				ft_strncmp(char *s1, char *s2, unsigned int n);
-char			*ft_strncpy(char *str, int size);
-char			*ft_strnew(size_t size);
-char			*ft_strnstr(char *str, char *to_find, size_t len);
-char			*ft_strrev(char *str);
-char    		**ft_strsplit_chr(char *str, char c);
-int				ft_strstr(char *str, char *to_find);
-char			*ft_strsub(char *str, int start, size_t len);
-int				ft_wstrlen(wchar_t *ws);
-char			*ft_strtrim(char *str);
+void				*ft_calloc(size_t nmemb, size_t size);
+char				*ft_strdup(const char *s);
 
-/*
-**	tools/
-*/
-int				ft_count_words(char *str);
-int				ft_is_sort(int *array, int length, int (*f)(int, int));
-void			ft_sort_wordtab(char **array);
-void			ft_set_max_fd(int *maxfd, int newfd);
+char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_strtrim(char const *s1, char const *set);
+char				**ft_split(char const *s, char c);
+char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_and_free(char *free_me,
+						char const *dont_free_me);
+char				*ft_strjoin_and_free_free(char *free_me, char *free_me_too);
+char				*ft_strjoin_and_del(char *delete_me,
+						char const *dont_delete_me);
+char				*ft_strjoin_and_del_del(char *delete_me,
+						char *delete_me_too);
 
-//	to fix:
-//	-> all numeric
-//	-> string/strjoin
-//	-> string/strnstr
-//	-> string/strtrim
-//	-> tools/either of them
-//	-> data_structures/red_black_tree/* 
-//	-> data_structures/hash_table add resizing function
-//	-> fix printf becuase it frees static (ft_itoa)
+char				*ft_itoa(int n);
+unsigned int		ft_i_to_buffer(int n, char *buffer);
+
+void				ft_putchar_fd(char c, int fd);
+void				ft_putstr_fd(char *s, int fd);
+void				ft_putendl_fd(char *s, int fd);
+void				ft_putnbr_fd(int n, int fd);
+
+void				ft_putchar(char c);
+void				ft_putstr(char *s);
+void				ft_putstr_up_to(char *s, size_t up_to);
+void				ft_putendl(char *s);
+
+bool				ft_is_valid_base(const char *base,
+						const size_t base_length);
+void				ft_aux_handle_minus_sign_li(long int *number_pointer);
+
+void				ft_putnbr(int n);
+void				ft_putnbr_i(int number);
+void				ft_putnbr_ui(unsigned int number);
+void				ft_putnbr_ul(unsigned long number);
+void				ft_putnbr_li(long int number);
+
+void				ft_putnbr_base(int number, char *base);
+void				ft_putnbr_base_i(int number, char *base);
+void				ft_putnbr_base_ui(unsigned int number, const char *base);
+void				ft_putnbr_base_ul(unsigned long number, const char *base);
+void				ft_putnbr_base_li(long int number, const char *base);
+
+void				ft_puthex_uppercase(unsigned int number);
+void				ft_puthex_downcase(unsigned int number);
+
+unsigned int		ft_count_digits(int number);
+unsigned int		ft_count_digits_i(int number);
+unsigned int		ft_count_digits_i(int number);
+unsigned int		ft_count_digits_ui(unsigned int number);
+unsigned int		ft_count_digits_ul(unsigned long number);
+
+unsigned int		ft_count_digits_hex_ui(unsigned int number);
+unsigned int		ft_count_digits_hex_ul(unsigned long number);
+
+unsigned int		ft_count_chars_i(int number);
+
+char				*ft_skip_digits(char *digits);
+char				*ft_skip_number(char *digits);
+
+t_list				*ft_lstnew(void *content);
+void				ft_lstadd_front(t_list **lst, t_list *new);
+int					ft_lstsize(t_list *lst);
+t_list				*ft_lstlast(t_list *lst);
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstdelone(t_list *lst, void (*del)(void *));
+void				ft_lstclear(t_list **lst, void (*del)(void *));
+void				ft_lstiter(t_list *lst, void (*f)(void *));
+t_list				*ft_lstmap(t_list *lst,
+						void *(*f)(void *),
+						void (*del)(void *));
+
+int					ft_get_next_line(int fd, char **line);
 
 #endif
