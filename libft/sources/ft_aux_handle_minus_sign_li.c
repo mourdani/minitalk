@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_aux_handle_minus_sign_li.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 02:31:03 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/03/25 20:02:49 by lpaulo-m         ###   ########.fr       */
+/*   Created: 2022/02/10 05:24:48 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/10 05:24:50 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

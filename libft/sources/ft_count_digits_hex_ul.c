@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_digits_hex_ul.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 03:16:22 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2022/02/10 04:13:13 by mourdani         ###   ########.fr       */
+/*   Created: 2022/02/10 05:25:20 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/10 05:25:21 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
