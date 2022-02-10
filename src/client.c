@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 18:31:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/06 02:16:40 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/10 02:07:19 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	send_binary(char *binary, int pid)
 		if (binary[i] == '0')
 			kill(pid, SIGUSR2);
 		i++;
-		usleep(150);
+		usleep(400);
 	}
 }
 

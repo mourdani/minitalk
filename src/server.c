@@ -6,28 +6,55 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:16:44 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/06 23:25:54 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/10 02:03:09 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-char	*fill_binary(int signum)
+static char	ft_btoc(char *str)
 {
-	char *binary;
+	int	c;
+	int	i;
+	int	power;
 
-	if (signum == SIGUSR1)
-		ft_putstr("1");
-	else
-		ft_putstr("0");
-	return (binary);
+	c = 0;
+	power = 1;
+	i = ft_strlen(str) - 1;
+	while (i >= 0)
+	{
+		c += (str[i] - '0') * power;
+		i--;
+		power *= 2;
+	}
+	return ((char)c);
 }
 
 void	handler(int signum)
 {
-	char	*msg;
+	static char *binary;
+	static int	count;
 
-	msg = fill_binary(signum);
+	if (!binary)
+	{
+		count = 0;
+		binary = ft_calloc(9, sizeof(char));
+		if (!binary)
+			return ;
+	}
+	count++;
+	if (signum == SIGUSR1)
+		binary[count - 1] = '1';
+	else
+		binary[count - 1] = '0';
+	if (count ==  8)
+	{
+		binary[count] = '\0';
+		ft_putchar(ft_btoc(binary));
+		free(binary);
+		binary = NULL;
+	}
+	return ;
 }
 
 int main()
