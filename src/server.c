@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:16:44 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 02:03:09 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/10 02:51:06 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	ft_btoc(char *str)
 
 void	handler(int signum)
 {
-	static char *binary;
+	static char	*binary;
 	static int	count;
 
 	if (!binary)
@@ -47,7 +47,7 @@ void	handler(int signum)
 		binary[count - 1] = '1';
 	else
 		binary[count - 1] = '0';
-	if (count ==  8)
+	if (count == 8)
 	{
 		binary[count] = '\0';
 		ft_putchar(ft_btoc(binary));
@@ -57,14 +57,13 @@ void	handler(int signum)
 	return ;
 }
 
-int main()
+int	main(void)
 {
-	struct sigaction action;
+	struct sigaction	action;
 
 	ft_putstr("server PID : ");
 	ft_putnbr(getpid());
 	ft_putchar('\n');
-
 	action.sa_handler = handler;
 	action.sa_flags = SA_RESTART;
 	sigemptyset(&action.sa_mask);

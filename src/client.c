@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 18:31:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 02:07:19 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/10 02:49:42 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	send_binary(char *binary, int pid)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (binary[i])
@@ -30,8 +30,8 @@ void	send_binary(char *binary, int pid)
 
 char	*add_end_zeros(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -47,8 +47,8 @@ char	*add_end_zeros(char *str)
 
 char	*ascii_to_b(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	c;
 	char	*binary;
 
@@ -94,7 +94,7 @@ int	check_pid(char *pid)
 
 int	main(int argc, char **argv)
 {
-	char *msg;
+	char	*msg;
 
 	if (argc != 3)
 	{
@@ -105,7 +105,6 @@ int	main(int argc, char **argv)
 		return (1);
 	msg = ascii_to_b(argv[2]);
 	msg = add_end_zeros(msg);
-	ft_putstr(msg);
 	send_binary(msg, ft_atoi(argv[1]));
 	free(msg);
 }
