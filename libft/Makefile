@@ -36,7 +36,7 @@ SOURCE_FILES = unless.c ft_salloc.c \
 	ft_strlen.c ft_strcpy.c ft_strdel.c ft_strnchr.c \
 	\
 	ft_strlcpy.c ft_strlcat.c ft_strchr.c ft_strrchr.c \
-	ft_strnstr.c ft_strncmp.c \
+	ft_strnstr.c ft_strncmp.c ft_straddc.c\
 	\
 	ft_atoi.c \
 	\

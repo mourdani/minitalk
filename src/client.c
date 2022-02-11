@@ -1,109 +1,85 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 18:31:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 21:05:25 by mourdani         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minitalk.h"
 
-void	send_binary(char *binary, int pid)
+void	error(char *str)
 {
-	int		i;
-
-	i = 0;
-	while (binary[i])
-	{
-		if (binary[i] == '1')
-			kill(pid, SIGUSR1);
-		if (binary[i] == '0')
-			kill(pid, SIGUSR2);
-		i++;
-		usleep(250);
-	}
+	if (str)
+		free(str);
+	ft_putstr("client: unexpected error.\n");
+	exit;
 }
 
-char	*add_end_zeros(char *str)
+int	send_null(int pid, char *str)
 {
-	int		i;
-	int		j;
+	static int	i = 0;
 
-	i = 0;
-	j = 0;
-	while (str[i])
-		i++;
-	while (j < 8)
+	if (i++ != 8)
 	{
-		str[i + j] = '0';
-		j++;
+		if (kill(pid, SIGUSR1) == -1)
+			error(str);
+		return (0);
 	}
-	return (str);
+	return (1);
 }
 
-char	*ascii_to_b(char *str)
+int	send_bit(int pid, char *str)
 {
-	int		i;
-	int		j;
-	char	c;
-	char	*binary;
+	static char	*message = 0;
+	static int	s_pid = 0;
+	static int	bits = -1;
 
-	i = 0;
-	binary = malloc((ft_strlen(str) * 8 + 9) * sizeof(char));
-	if (!binary)
-		return (NULL);
-	while (str[i])
+	if (str)
+		message = ft_strdup(str);
+	if (!message)
+		error(0);
+	if (pid)
+		s_pid = pid;
+	if (message[++bits / 8])
 	{
-		c = (int)str[i];
-		j = i * 8 + 7;
-		while (j >= (i * 8))
+		if (message[bits / 8] & (0x80 >> (bits % 8)))
 		{
-			if (c % 2 == 1)
-				binary[j] = '1';
-			else
-				binary[j] = '0';
-			c /= 2;
-			j--;
+			if (kill(s_pid, SIGUSR2) == -1)
+				error(message);
 		}
-		i++;
+		else if (kill(s_pid, SIGUSR1) == -1)
+			error(message);
+		return (0);
 	}
-	return (binary);
+	if (!send_null(s_pid, message))
+		return (0);
+	free(message);
+	return (1);
 }
 
-int	check_pid(char *pid)
+void	handler_sigusr(int signum)
 {
-	int	i;
+	int	end;
 
-	i = 0;
-	while (pid[i])
+	end = 0;
+	if (signum == SIGUSR1)
+		end = send_bit(0, 0);
+	else if (signum == SIGUSR2)
 	{
-		if (pid[i] < '0' || pid[i] > '9')
-		{
-			ft_putstr("wrong PID");
-			return (1);
-		}
-		i++;
+		ft_putstr("client: server ended unexpectdly.\n");
+		exit;
 	}
-	return (0);
+	if (end)
+	{
+		ft_putstr("client: operation successful.\n");
+		exit;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	char	*msg;
-
 	if (argc != 3)
 	{
-		ft_putstr("USAGE : ./client [server PID] [array to send]");
-		return (1);
+		ft_putstr("client: invalid arguments.\n");
+		ft_putstr("correct format: [./client <PID> <STR>].\n");
+		exit;
 	}
-	if (check_pid(argv[1]) == 1)
-		return (1);
-	msg = ascii_to_b(argv[2]);
-	msg = add_end_zeros(msg);
-	send_binary(msg, ft_atoi(argv[1]));
-	free(msg);
+	signal(SIGUSR1, handler_sigusr);
+	signal(SIGUSR2, handler_sigusr);
+	send_bit(ft_atoi(argv[1]), argv[2]);
+	while (1)
+		pause();
 }

@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 05:36:34 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 05:36:36 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/11 02:12:22 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ char				*ft_strcpy(char *dest, char *src);
 void				ft_strdel(char **delete_me);
 char				*ft_strnchr(const char *s, int c, unsigned int limit);
 
+	
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+char				*ft_straddc(char *s, char c);
 char				*ft_strnstr(const char *haystack,
 						const char *needle,
 						size_t len);

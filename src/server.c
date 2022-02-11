@@ -1,77 +1,65 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 02:16:44 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 02:51:06 by mourdani         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minitalk.h"
 
-static char	ft_btoc(char *str)
+void	error(int pid, char *str)
 {
-	int	c;
-	int	i;
-	int	power;
-
-	c = 0;
-	power = 1;
-	i = ft_strlen(str) - 1;
-	while (i >= 0)
-	{
-		c += (str[i] - '0') * power;
-		i--;
-		power *= 2;
-	}
-	return ((char)c);
+	if (str)
+		free(str);
+	ft_putstr("server: unexpected error.\n");
+	kill(pid, SIGUSR2);
+	exit(EXIT_FAILURE);
 }
 
-void	handler(int signum)
+char	*print_string(char *message)
 {
-	static char	*binary;
-	static int	count;
+	ft_putstr_fd(message, 1);
+	free(message);
+	return (NULL);
+}
 
-	if (!binary)
-	{
-		count = 0;
-		binary = ft_calloc(9, sizeof(char));
-		if (!binary)
-			return ;
-	}
-	count++;
+void	handler_sigusr(int signum, siginfo_t *info, void *context)
+{
+	static char	c = 0xFF;
+	static int	bits = 0;
+	static int	pid = 0;
+	static char	*message = 0;
+
+	(void)context;
+	if (info->si_pid)
+		pid = info->si_pid;
 	if (signum == SIGUSR1)
-		binary[count - 1] = '1';
-	else
-		binary[count - 1] = '0';
-	if (count == 8)
+		c ^= 0x80 >> bits;
+	else if (signum == SIGUSR2)
+		c |= 0x80 >> bits;
+	if (++bits == 8)
 	{
-		binary[count] = '\0';
-		ft_putchar(ft_btoc(binary));
-		free(binary);
-		binary = NULL;
+		if (c)
+			message = ft_straddc(message, c);
+		else
+			message = print_string(message);
+		bits = 0;
+		c = 0xFF;
 	}
-	return ;
+	if (kill(pid, SIGUSR1) == -1)
+		error(pid, message);
 }
 
 int	main(void)
 {
-	struct sigaction	action;
+	struct sigaction	sa_signal;
+	sigset_t			block_mask;
 
-	ft_putstr("server PID : ");
+	sigemptyset(&block_mask);
+	sigaddset(&block_mask, SIGINT);
+	sigaddset(&block_mask, SIGQUIT);
+	sa_signal.sa_handler = 0;
+	sa_signal.sa_flags = SA_SIGINFO;
+	sa_signal.sa_mask = block_mask;
+	sa_signal.sa_sigaction = handler_sigusr;
+	sigaction(SIGUSR1, &sa_signal, NULL);
+	sigaction(SIGUSR2, &sa_signal, NULL);
+	ft_putstr("PID: ");
 	ft_putnbr(getpid());
-	ft_putchar('\n');
-	action.sa_handler = handler;
-	action.sa_flags = SA_RESTART;
-	sigemptyset(&action.sa_mask);
-	sigaddset(&action.sa_mask, SIGUSR1);
-	sigaddset(&action.sa_mask, SIGUSR2);
-	sigaction(SIGUSR1, &action, NULL);
-	sigaction(SIGUSR2, &action, NULL);
+	ft_putstr("\n");
 	while (1)
 		pause();
-	return (0);
 }
