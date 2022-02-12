@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/01 15:45:45 by mlanca-c          #+#    #+#             */
-/*   Updated: 2022/02/12 05:58:50 by mourdani         ###   ########.fr       */
+/*   Created: 2022/02/12 06:58:48 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/12 07:17:12 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,16 @@ void	handler(int signum)
 	}
 	else if (signum == SIGUSR2)
 	{
-		ft_putstr("An error occured.\n");
+		ft_putstr_fd("An error occured.\n", 2);
 		exit(1);
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	if (argc != 3)
+	if (argc != 3) // add ft_isnumeric
 	{
-		ft_putstr("USAGE : ./client [server PID] [array to send]\n");
+		ft_putstr_fd("USAGE : ./client [server PID] [array to send]\n", 2);
 		exit(0);
 	}
 	signal(SIGUSR1, handler);
