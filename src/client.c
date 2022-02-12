@@ -3,107 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 18:31:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 21:05:25 by mourdani         ###   ########.fr       */
+/*   Created: 2021/07/01 15:45:45 by mlanca-c          #+#    #+#             */
+/*   Updated: 2022/02/12 05:58:50 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-void	send_binary(char *binary, int pid)
+int	send_null(int pid, char **str)
 {
-	int		i;
+	static int	i;
 
-	i = 0;
-	while (binary[i])
+	if (!i)
+		i = 0;
+	if (i++ != 8)
 	{
-		if (binary[i] == '1')
-			kill(pid, SIGUSR1);
-		if (binary[i] == '0')
-			kill(pid, SIGUSR2);
-		i++;
-		usleep(250);
-	}
-}
-
-char	*add_end_zeros(char *str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-		i++;
-	while (j < 8)
-	{
-		str[i + j] = '0';
-		j++;
-	}
-	return (str);
-}
-
-char	*ascii_to_b(char *str)
-{
-	int		i;
-	int		j;
-	char	c;
-	char	*binary;
-
-	i = 0;
-	binary = malloc((ft_strlen(str) * 8 + 9) * sizeof(char));
-	if (!binary)
-		return (NULL);
-	while (str[i])
-	{
-		c = (int)str[i];
-		j = i * 8 + 7;
-		while (j >= (i * 8))
+		if (kill(pid, SIGUSR1) == -1)
 		{
-			if (c % 2 == 1)
-				binary[j] = '1';
-			else
-				binary[j] = '0';
-			c /= 2;
-			j--;
-		}
-		i++;
-	}
-	return (binary);
-}
-
-int	check_pid(char *pid)
-{
-	int	i;
-
-	i = 0;
-	while (pid[i])
-	{
-		if (pid[i] < '0' || pid[i] > '9')
-		{
-			ft_putstr("wrong PID");
+			free(str);
 			return (1);
 		}
-		i++;
+		return (0);
 	}
-	return (0);
+	return (1);
+}
+
+void	send_sig(int sig, int pid, char **msg)
+{
+	if (sig == 1)
+	{
+		if (kill(pid, SIGUSR2) == -1)
+		{
+			if (*msg)
+				free(*msg);
+		}
+	}
+	if (sig == 2)
+	{
+		if (kill(pid, SIGUSR1) == -1)
+		{
+			if (*msg)
+				free(*msg);
+		}
+	}
+}
+
+int	send_bit(int pid, char *str)
+{
+	static char	*msg = 0;
+	static int	s_pid = 0;
+	static int	bits = -1;
+
+	if (pid)
+		s_pid = pid;
+	if (str)
+		msg = ft_strdup(str);
+	if (!msg)
+		return (0);
+	if (msg[++bits / 8])
+	{
+		if (msg[bits / 8] & (0x80 >> (bits % 8)))
+			send_sig(1, s_pid, &msg);
+		else
+			send_sig(2, s_pid, &msg);
+		return (0);
+	}
+	if (!send_null(s_pid, &msg))
+		return (0);
+	free(msg);
+	return (1);
+}
+
+void	handler(int signum)
+{
+	if (signum == SIGUSR1)
+	{
+		if (send_bit(0, 0))
+		{
+			ft_putstr("Message sent!.\n");
+			exit(0);
+		}
+	}
+	else if (signum == SIGUSR2)
+	{
+		ft_putstr("An error occured.\n");
+		exit(1);
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	char	*msg;
-
 	if (argc != 3)
 	{
-		ft_putstr("USAGE : ./client [server PID] [array to send]");
-		return (1);
+		ft_putstr("USAGE : ./client [server PID] [array to send]\n");
+		exit(0);
 	}
-	if (check_pid(argv[1]) == 1)
-		return (1);
-	msg = ascii_to_b(argv[2]);
-	msg = add_end_zeros(msg);
-	send_binary(msg, ft_atoi(argv[1]));
-	free(msg);
+	signal(SIGUSR1, handler);
+	signal(SIGUSR2, handler);
+	send_bit(ft_atoi(argv[1]), argv[2]);
+	while (1)
+		pause();
 }

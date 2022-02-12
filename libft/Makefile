@@ -51,7 +51,7 @@ SOURCE_FILES = unless.c ft_salloc.c \
 	ft_substr.c ft_strtrim.c ft_split.c ft_strmapi.c \
 	\
 	ft_strjoin.c ft_strjoin_and_free.c ft_strjoin_and_free_free.c \
-	ft_strjoin_and_del.c ft_strjoin_and_del_del.c \
+	ft_strjoin_and_del.c ft_strjoin_and_del_del.c ft_straddc.c\
 	\
 	ft_itoa.c ft_i_to_buffer.c \
 	\

@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 05:36:34 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/10 05:36:36 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/12 06:03:02 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
+char				*ft_straddc(char *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_and_free(char *free_me,
 						char const *dont_free_me);
