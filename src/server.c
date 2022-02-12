@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 06:58:35 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/12 07:21:45 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/12 08:00:18 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ void	send_end_sig(char **msg, int pid)
 	}
 }
 
+void	print_free(char **msg)
+{
+	ft_putstr(*msg);
+	free(*msg);
+	*msg = NULL;
+}
+
 void	handler(int signum, siginfo_t *info, void *context)
 {
-	static char	c = 0xFF;
-	static int	bits = 0;
 	static int	pid = 0;
+	static char	c = 0xFF;
 	static char	*msg = 0;
+	static int	bits = 0;
 
 	(void)context;
 	if (info->si_pid)
@@ -37,15 +44,10 @@ void	handler(int signum, siginfo_t *info, void *context)
 		c ^= 0x80 >> bits;
 	else if (signum == SIGUSR2)
 		c |= 0x80 >> bits;
-	bits++;
-	if (bits == 8)
+	if (++bits == 8)
 	{
 		if (!c)
-		{
-			ft_putstr(msg);
-			free(msg);
-			msg = NULL;
-		}
+			print_free(&msg);
 		else
 			msg = ft_straddc(msg, c);
 		bits = 0;
