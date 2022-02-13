@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 06:58:48 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/12 08:15:51 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/14 00:03:37 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,14 @@ void	handler(int signum)
 
 int	main(int argc, char **argv)
 {
-	if (argc != 3) // add check on non numeric pid
+	if (argc != 3)
 	{
 		ft_putstr_fd("USAGE : ./client [server PID] [array to send]\n", 2);
+		exit(0);
+	}
+	if (ft_atoi(argv[1]) <= 0)
+	{
+		ft_putstr("wrong PID\n");
 		exit(0);
 	}
 	signal(SIGUSR1, handler);
